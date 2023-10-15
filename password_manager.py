@@ -30,12 +30,10 @@ class PasswordManager():
             res += str(password) + "\n";
         return res;
 
-#Stores exactly one username, its random salt, and its hash.
-#Password is not stored.
+#Contains exactly one username, its random salt, and its hash.
+#Password is not contained.
 class Password():
     def __init__(self, username: str, password: str):
-        self.username = username;
-        
         salt = "";
         chars = "!@#$%^&*abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         for i in range(8):
@@ -43,6 +41,7 @@ class Password():
         
         hash_code = hex(hash(username + salt + password));
         
+        self.username = username;
         self.salt = salt;
         self.hash_code = hash_code;
     
@@ -55,7 +54,7 @@ class Password():
     def hash(str) -> int:        
         res = len(str);
         for c in str:
-            res += res * 7 + int(c);
+            res += res * 7 + ord(c);
     
     def __str__(self):
         return self.username + "," + self.salt + "," + self.hash_code;
