@@ -39,7 +39,7 @@ class Password():
         for i in range(8):
             salt += random.choice(chars);
         
-        hash_code = hex(hash(username + salt + password));
+        hash_code = hex(Password.hash(salt + password));
         
         self.username = username;
         self.salt = salt;
@@ -47,17 +47,21 @@ class Password():
     
     #Returns true if password candidate matches this Password object's hash
     def validate(self, candidate) -> bool:
-        if hex(hash(self.username + self.salt + candidate)) == self.hash_code:
+        if hex(Password.hash(self.salt + candidate)) == self.hash_code:
             return True;
         return False;
     
-    def hash(str) -> int:        
+    def hash(str) -> int:  
+        # print(str);      
         res = len(str);
+        # print(res);
         for c in str:
-            res += res * 7 + ord(c);
+            res += (res * 7 + ord(c));
+            # print(res);
+        return res
     
     def __str__(self):
-        return self.username + "," + self.salt + "," + self.hash_code;
+        return self.username + "," + self.salt + "," + str(self.hash_code);
 
 #Testing
 
@@ -65,6 +69,9 @@ class Password():
 pws = PasswordManager("");
 pws.add("lnclndsll@gmail.com", "GoBucks!");
 pws.add("email@email.email", "MyPassword@123");
+
+pws.add("MyName", "HelloThere");
+pws.add("myname", "hellothere");
 
 print(pws);
 
