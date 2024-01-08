@@ -62,32 +62,3 @@ class Password():
     
     def __str__(self):
         return self.username + "," + self.salt + "," + str(self.hash_code);
-
-#Testing
-
-#Create Accounts
-pws = PasswordManager("");
-pws.add("lnclndsll@gmail.com", "GoBucks!");
-pws.add("email@email.email", "MyPassword@123");
-
-pws.add("MyName", "HelloThere");
-pws.add("myname", "hellothere");
-
-print(pws);
-
-#Test username and password combos
-#Should be true
-print(pws.validate("lnclndsll@gmail.com", "GoBucks!"));
-print(pws.validate("email@email.email", "MyPassword@123"));
-
-#Should be false
-print(pws.validate("lnclndsll@gmail.com", "MyPassword@123"));
-print(pws.validate("email@email.email", "GoBucks!"));
-print(pws.validate("lnclndsll", "MyPassword@123"));
-print(pws.validate("email", "GoBucks!"));
-
-try:
-    pws.add("lnclndsll@gmail.com", "ClassOf2026")
-    print("Duplicate username incorrectly accepted")
-except KeyError:
-    print("Duplicate username correctly rejected")
